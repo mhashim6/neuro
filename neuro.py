@@ -49,25 +49,24 @@ class NeuralNetwork:
 
 def trainNetwork(network):
     trainingData = mnist.trainingData()
-    for record in trainingData:
-        inputs = mnist.rescaleInput(mnist.toFloat(record[1:]))
-        targets = np.zeros(network.onodes) + 0.01
-        targets[int(record[0])] = 0.99
-        network.train(inputs, targets)
+    for epoch in range(3):
+        for record in trainingData:
+            inputs = mnist.rescaleInput(mnist.toFloat(record[1:]))
+            targets = np.zeros(network.onodes) + 0.01
+            targets[int(record[0])] = 0.99
+            network.train(inputs, targets)
 
 
 def testNetwork(network):
     scorecard = []
-    for epoch in range(2):
-        scorecard = []
-        testData = mnist.testData()
-        for record in testData:
-            inputs = mnist.rescaleInput(mnist.toFloat(record[1:]))
-            target = int(record[0])
-            outputs = network.query(inputs)
-            label = np.argmax(outputs)
-            # print(label)
-            scorecard.append(label == target)
+    testData = mnist.testData()
+    for record in testData:
+        inputs = mnist.rescaleInput(mnist.toFloat(record[1:]))
+        target = int(record[0])
+        outputs = network.query(inputs)
+        label = np.argmax(outputs)
+        # print(label)
+        scorecard.append(label == target)
     return scorecard
 
 
