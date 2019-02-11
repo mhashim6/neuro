@@ -58,7 +58,7 @@ def trainNetwork(network):
 
 
 def testNetwork(network):
-    scorecard = []
+    score = 0
     testData = mnist.testData()
     for record in testData:
         inputs = mnist.rescaleInput(mnist.toFloat(record[1:]))
@@ -66,16 +66,17 @@ def testNetwork(network):
         outputs = network.query(inputs)
         label = np.argmax(outputs)
         # print(label)
-        scorecard.append(label == target)
-    return scorecard
+        if target == label:
+            score += 1
+    return score
 
 
 def main():
     network = NeuralNetwork(inputNodes=784, outputNodes=10,
                             hiddenNodes=200, learningRate=0.1)
     trainNetwork(network)
-    results = testNetwork(network)
-    print('accuracy: ', (100 * len(list(filter(lambda x: x, results))) / 10000), '%')
+    result = testNetwork(network)
+    print('accuracy: ', (100 * result / 10000), '%')
 
 
 if __name__ == "__main__":
