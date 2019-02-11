@@ -26,4 +26,4 @@ def rescaleInput(input):
     """
     scales input's elements down to range 0.1 to 1.0.
     """
-    return (0.99 * input / 250.0) + .1
+    return (0.99 * input / 255.0) + .1
