@@ -49,7 +49,7 @@ class NeuralNetwork:
 
 def trainNetwork(network):
     trainingData = mnist.trainingData()
-    for epoch in range(3):
+    for epoch in range(5):
         for record in trainingData:
             inputs = mnist.rescaleInput(mnist.toFloat(record[1:]))
             targets = np.zeros(network.onodes) + 0.01
